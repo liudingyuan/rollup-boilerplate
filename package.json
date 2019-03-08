@@ -10,7 +10,9 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "rollup -c"
+    "dev": "docz dev && yarn watch",
+    "watch": "rollup -c -w",
+    "build": "rm -rf ./dist && rollup -c"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,8 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^1.4.2",
     "@typescript-eslint/parser": "^1.4.2",
+    "docz": "^0.13.7",
+    "docz-theme-default": "^0.13.7",
     "rollup": "^1.6.0",
     "rollup-plugin-typescript2": "^0.19.3",
     "rollup-plugin-uglify": "^6.0.2",

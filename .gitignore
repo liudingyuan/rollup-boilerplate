@@ -2,3 +2,4 @@ node_modules
 npm-debug.log
 dist
 .rpt2_cache
+.docz
