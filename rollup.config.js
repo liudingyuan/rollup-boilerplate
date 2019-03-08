@@ -1,34 +1,47 @@
-import resolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
-import babel from 'rollup-plugin-babel'
+import typescript from 'rollup-plugin-typescript2'
+import {uglify} from 'rollup-plugin-uglify'
 import pkg from './package.json'
 
-export default [
-  {
-    input: 'src/index.js',
-    output: {
-      file: pkg.main,
-      format: 'umd',
-      name: 'utils'
-    },
-    plugins: [
-      resolve(),
-      commonjs(),
-      babel({
-        exclude: 'node_modules/**'
-      })
-    ]
-  },
-  {
-    input: 'src/index.js',
-    output: {
-      file: pkg.module,
-      format: 'es'
-    },
-    plugins: [
-      babel({
-        exclude: 'node_modules/**'
-      })
-    ]
-  }
+const commonPlugins = [
+  typescript()
 ]
+
+const baseConfig = {
+  input: 'src/index.ts',
+  external: [
+    ...Object.keys(pkg.dependencies || {}),
+    ...Object.keys(pkg.peerDependencies || {})
+  ]
+}
+
+const umdConfig = {
+  ...baseConfig,
+  output: {
+    file: pkg.main,
+    format: 'umd',
+    name: 'utils'
+  },
+  plugins: [
+    ...commonPlugins,
+    uglify({
+      compress: {
+        pure_getters: true,
+        unsafe: true,
+        unsafe_comps: true
+      }
+    })
+  ]
+}
+
+const esmConfig = {
+  ...baseConfig,
+  output: {
+    file: pkg.module,
+    format: 'es'
+  },
+  plugins: [
+    ...commonPlugins
+  ]
+}
+
+export default [umdConfig, esmConfig]

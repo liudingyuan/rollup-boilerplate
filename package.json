@@ -5,6 +5,10 @@
   "main": "dist/bundle.min.js",
   "module": "dist/bundle.es.js",
   "jsnext:main": "dist/bundle.es.js",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
   "scripts": {
     "build": "rollup -c"
   },
@@ -19,5 +23,12 @@
     "url": "https://github.com/liudingyuan/rollup-boilerplate/issues"
   },
   "homepage": "https://github.com/liudingyuan/rollup-boilerplate#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "@typescript-eslint/parser": "^1.4.2",
+    "rollup": "^1.6.0",
+    "rollup-plugin-typescript2": "^0.19.3",
+    "rollup-plugin-uglify": "^6.0.2",
+    "typescript": "^3.3.3333"
+  }
 }
